@@ -1,0 +1,50 @@
+- hosts: all
+  connection: local
+  become: yes
+  gather_facts: True
+
+  tasks:
+  - name: Install packages
+    apt:
+      name: ['python-minimal','python-pip','unzip',
+            'apt-transport-https','emacs-nox',
+	    'ca-certificates', 'curl',
+	    'software-properties-common', 'nfs-common']
+      state: present
+      update_cache: yes
+
+  - name: Install python package by pip
+    pip:
+      name: ansible==2.7.7
+
+  - name: Download terraform
+    get_url:
+      url: https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip
+      dest: /tmp/terraform_0.11.11_linux_amd64.zip
+
+  - name: Install terraform
+    unarchive:
+      src: /tmp/terraform_0.11.11_linux_amd64.zip
+      dest: /usr/local/bin
+
+  - name: Download terraform-provider-ibm
+    get_url:
+      url: https://github.com/IBM-Cloud/terraform-provider-ibm/releases/download/v0.14.1/linux_amd64.zip
+      dest: /tmp/linux_amd64.zip
+
+  - name: Install terraform-privider-ibm
+    unarchive:
+      src: /tmp/linux_amd64.zip
+      dest: /usr/local/bin
+
+  - name: copy keys into VM
+    copy:
+      src: /vagrant/keys
+      dest: /home/vagrant
+      owner: vagrant
+      group: vagrant
+      mode: 0600
+
+  - name: IBM Cloud CLI it will takes 300 sec
+    shell: curl -sL https://ibm.biz/idt-installer | bash
+    
