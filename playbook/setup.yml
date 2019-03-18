@@ -46,5 +46,7 @@
       mode: 0600
 
   - name: IBM Cloud CLI it will takes 300 sec
-    shell: curl -sL https://ibm.biz/idt-installer | bash
-    
+    shell: sudo -i -u vagrant curl -sL https://ibm.biz/idt-installer | sudo -i -u vagrant bash
+    args:
+      chdir: /home/vagrant
+
