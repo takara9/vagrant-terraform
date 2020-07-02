@@ -41,14 +41,14 @@ $ vagrant ssh
 ＜中略＞
 
 $ terraform --version
-Terraform v0.11.11
-+ provider.ibm v0.14.1
+Terraform v0.12.14
++ provider.ibm v1.2.5
 
 $ ibmcloud --version
-ibmcloud version 0.14.0+3303164-2019-02-06T06:09:00+00:00
+ibmcloud version 1.1.0+cc908fe-2020-04-29T04:06:12+00:00
 
 $ ansible --version
-ansible 2.7.7
+ansible 2.9.9
 ~~~
 
 

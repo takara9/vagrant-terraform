@@ -6,37 +6,43 @@
   tasks:
   - name: Install packages
     apt:
-      name: ['python-minimal','python-pip','unzip',
+      name: ['python','python-pip','unzip',
             'apt-transport-https','emacs-nox',
             'ca-certificates', 'curl',
             'software-properties-common', 'nfs-common']
       state: present
       update_cache: yes
 
+      
   - name: Install python package by pip
     pip:
-      name: ansible==2.7.7
+      name: ansible==2.9.10
 
+      
   - name: Download terraform
     get_url:
       url: https://releases.hashicorp.com/terraform/{{ terraform_ver }}/terraform_{{ terraform_ver }}_linux_amd64.zip
       dest: /tmp/terraform_{{ terraform_ver }}_linux_amd64.zip
 
+      
   - name: Install terraform
     unarchive:
       src: /tmp/terraform_{{ terraform_ver }}_linux_amd64.zip
       dest: /usr/local/bin
 
+      
   - name: Download terraform-provider-ibm
     get_url:
       url: https://github.com/IBM-Cloud/terraform-provider-ibm/releases/download/v{{ provider_ibm }}/linux_amd64.zip
       dest: /tmp/linux_amd64.zip
 
+      
   - name: Install terraform-privider-ibm
     unarchive:
       src: /tmp/linux_amd64.zip
       dest: /usr/local/bin
 
+      
   - name: copy keys into VM
     copy:
       src: /vagrant/keys
@@ -45,8 +51,17 @@
       group: vagrant
       mode: 0600
 
+      
   - name: IBM Cloud CLI it will takes 300 sec
     shell: curl -sL https://ibm.biz/idt-installer | bash
+    args:
+      chdir: /home/vagrant
+    become: true
+    become_user: vagrant
+
+
+  - name: git clone terraform workspace for VSI
+    shell: git clone https://github.com/takara9/terraform-ibmcloud-vsi vsi
     args:
       chdir: /home/vagrant
     become: true

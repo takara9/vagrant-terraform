@@ -2,5 +2,5 @@ workstation   ansible_connection=local
 
 
 [all:vars]
-terraform_ver=0.12.14
-provider_ibm=1.2.5
+terraform_ver=0.12.28
+provider_ibm=1.8.1
