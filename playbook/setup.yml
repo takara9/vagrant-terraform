@@ -42,15 +42,22 @@
       src: /tmp/linux_amd64.zip
       dest: /usr/local/bin
 
-      
-  - name: copy keys into VM
-    copy:
-      src: /vagrant/keys
-      dest: /home/vagrant
+  - name: Make key directory
+    file:
+      path: /home/vagrant/keys
+      state: directory
       owner: vagrant
       group: vagrant
-      mode: 0600
-
+      mode:  0755
+    become: true
+    become_user: vagrant  
+      
+  - name: ssh keygen
+    command: ssh-keygen -t rsa -b 4096 -N '' -f ./keys/key
+    args:
+      chdir: /home/vagrant
+    become: true
+    become_user: vagrant  
       
   - name: IBM Cloud CLI it will takes 300 sec
     shell: curl -sL https://ibm.biz/idt-installer | bash
