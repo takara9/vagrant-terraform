@@ -52,9 +52,7 @@ $ cd vsi
 $ terraform init
 ~~~
 
-実行前に `terraform plan` で、実行可能性の確認する。エラーが無ければ 適用へ進む。ここで、secret.tfvars は IBM Cloud のサービス利用資格情報の変数であり、ユーザー個別に取得してセットする必要がある。雛形は secret.tfvars.temp としてあるので参照いただきたい。
-
-terraform.tfvarsは、プロジェクトの変数で、簡単な変更は、このファイルを編集する。
+実行前に `terraform plan` で、実行可能性の確認する。エラーが無ければ 適用へ進む。ここで、secret.tfvars は IBM Cloud のサービス利用資格情報の変数であり、ユーザー個別に取得してセットする必要がある。雛形は secret.tfvars.temp なのでファイル名を変更して編集してください。terraform.tfvarsは、プロジェクトの変数で、簡単な変更は、このファイルを編集する。
 
 ~~~
 $ terraform plan --var-file /vagrant/secret.tfvars --var-file terraform.tfvars
@@ -77,6 +75,7 @@ $ terraform show
 ~~~
 $ terraform destroy --var-file /vagrant/secret.tfvars --var-file terraform.tfvars
 ~~~
+
 
 
 
